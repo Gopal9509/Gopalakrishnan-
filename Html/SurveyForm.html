@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Survey Form</title>
+<style>
+ body{
+   font-family:Arial, san-serif;
+   margin:0;
+   padding:0;
+   backgroungcolor:#f4f4f4;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+ }
+ .form-container {
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    border-radius: 8px;
+  }
+ .form-container input, .form-container select, .form-container textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;     
+  }
+  .form-container button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .form-container button:hover {
+    background-color: #45a049;
+  }
+  .form-container .reset {
+    background-color: #f44336;
+  }
+  .popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    border-radius: 8px;
+    z-index: 999;
+  }
+  .popup .close-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  } 
+</style>
+</head>
+<body>
+   <div class="form-container">
+      <form id="serveyForm" onsubmit="return validateForm()">
+         <label>First Name:</label>
+         <input type="text" id="firstName" name="firstName" required>
+         <label>Last Name:</label>
+         <input type="text" id="lastName" name="lastName" required>
+         <label>Date of Birth:</label>
+         <input type="date" id="dob" name="dob" required>
+         <label>Country:</label>
+         <select id="country" name="country" required>
+            <option value="--select--">Select Country</option>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <option value="India">India</option>
+            <option value="Australia">Australia</option>
+            <option value="UK">UK</option>
+        </select>
+        <label>Gender:</label>
+        <input type="radio" id="male" name="gender" value="Male"> Male
+        <input type="radio" id="female" name="gender" value="Female"> Female
+        <input type="radio" id="other" name="gender" value="Other"> Other<br><br>
+        <label>Profession:</label>
+        <input type="text" id="profession" name="profession" required>
+        <label>Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label>Mobile Number:</label>
+        <input type="tel" id="mobile" name="mobile" pattern="[0-9]{10}" required>
+        <input type="submit" value="Submit">
+        <input type="button" class="reset" onclick="resetForm()" value="Reset">
+      </form>
+   </div>
+   <div id="popup" class="popup">
+    <h3>Form Submitted!</h3>
+    <p id="popupContent"></p>
+    <input type="button" class="close-btn" onclick="closePopup()" value="Close">
+   </div>
+<script>
+function validateForm() {
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const dob = document.getElementById('dob').value;
+    const country = document.getElementById('country').value;
+    const profession = document.getElementById('profession').value;
+    const email = document.getElementById('email').value;
+    const mobile = document.getElementById('mobile').value;
+    const genderChecked = document.querySelectorAll('input[name="gender"]:checked').length > 0;
+    
+    if (!firstName || !lastName || !dob || !country || !profession || !email || !mobile || !genderChecked) {
+        alert("All fields are required!");
+        return false;
+}
+
+    const genderValues = [];
+    const genderElements = document.querySelectorAll('input[name="gender"]:checked');
+    genderElements.forEach(gender => genderValues.push(gender.value));
+    
+    const popupContent = `
+        <strong>First Name:</strong> ${firstName} <br>
+        <strong>Last Name:</strong> ${lastName} <br>
+        <strong>Date of Birth:</strong> ${dob} <br>
+        <strong>Country:</strong> ${country} <br>
+        <strong>Gender:</strong> ${genderValues.join(', ')} <br>
+        <strong>Profession:</strong> ${profession} <br>
+        <strong>Email:</strong> ${email} <br>
+        <strong>Mobile Number:</strong> ${mobile}
+    `;
+    
+    document.getElementById('popupContent').innerHTML = popupContent;
+    document.getElementById('popup').style.display = 'block';
+    
+    return false; 
+}
+function resetForm() {
+    document.getElementById('surveyForm').reset();
+}
+
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
+    resetForm();
+}
+</script>
+</body>
+</html>
