@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Reverse a sentence</title>
+</head>
+<body>
+<h2>Reverse Each word in the sentence</h2>
+<label>Enter a sentence</label>
+<input type="text" id="t" placeholder="Enter a sentence">
+<input type="button" onclick="reverse()" value="Reverse sentence">
+<p id="output"></p>
+<script>
+function reverse(){
+	const sentence=document.getElementById("t").value;
+	const words=sentence.split(' ');
+	let reversedSentence=' ';
+	for(let i=0;i<words.length;i++){
+		let word=words[i];
+		let reversedWord=' ';
+		for(let j=word.length-1;j>=0;j--){
+			reversedWord=reversedWord+word[j];
+		}
+		reversedSentence=reversedSentence+reversedWord;
+		if(i<words.length-1){
+			reversedSentence=reversedSentence+' ';
+		}
+	}
+	document.getElementById("output").innerText="Reversed Sentence : "+reversedSentence;
+}
+</script>
+</body>
+</html>

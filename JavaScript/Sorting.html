@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Sorting of an array</title>
+</head>
+<body>
+<h2>Sorting the array in descending order</h2>
+<label>Enter a numbers</label>
+<input type="text" id="t" placeholder="eg. 1,2,3,4,5,6">
+<input type="button" onclick="sort()" value="Sort Array">
+<p id="output"></p>
+<script>
+function sort(){
+	const input=document.getElementById("t").value;
+	const a=input.split(',');
+	for(let i=0;i<a.length-1;i++){
+		for(let j=i+1;j<a.length-1;j++){
+			if(parseInt(a[i])<parseInt(a[j])){
+				let temp=a[i];
+				a[i]=a[j];
+				a[j]=temp;
+			}
+		}
+	}
+	document.getElementById("output").innerText="Sorted Array : "+a.join(', ');
+}
+</script>
+</body>
+</html>
